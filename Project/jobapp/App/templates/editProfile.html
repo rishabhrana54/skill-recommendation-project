@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+        body{
+            background-color: #DBEFF2; 
+        }
+        #title{
+            size:20%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">app</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-primary" href="{% url 'viewProfile' email %}">View Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-primary" href="{% url 'editProfile' email%}">Edit Profile</a>
+                                </li>
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search jobs" aria-label="Search">
+                                <button class="btn btn-danger my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </div>
+    </nav>
+
+    <div class="container">
+        <section id="form">
+            <h2>Profile Form</h2>
+            <h5>Build Your Resume Here</h5>
+            <h3 id="title"><span id="email">{{email}}</span></h3>
+            <hr>
+
+            <form action="{% url 'submitProfile' %}" method="post"> {% csrf_token %}
+                    <div class="form-group">
+                    <label for="objective">Enter Email</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="qualification">Qualification</label>
+                        <select id="qualification" name="qualification" class="form-control">
+                              <option selected>Qualification</option>
+                              <option value="btech">Btech</option>
+                              <option value="mtech">Mtech</option>
+                              <option value="bca">BCA</option>
+                              <option value="mca">MCA</option>
+                              <option value="bba">BBA</option>
+                              <option value="mba">MBA</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="college">College</label>
+                        <select id="college" name="clg" class="form-control">
+                                  <option selected>College</option>
+                                  <option value="Indian Institute of Technology">Indian Institute of Technology</option>
+                                  <option value="Jamia Millia Islamia">Jamia Millia Islamia</option>
+                                  <option value="Netaji Subhas University of Technology">Netaji Subhas University of Technology</option>
+                                  <option value="Bhagwan Parshuram Institute of Technology">Bhagwan Parshuram Institute of Technology </option>
+                                  <option value="HMR Institute of Technology & Management">HMR Institute of Technology & Management</option>
+                                  <option value="Delhi Technical University">Delhi Technical University</option>
+                                  <option value="Indraprastha University">Indraprastha University</option>
+                                  <option value="Bharati Vidyapeeth’s College of Engineering">Bharati Vidyapeeth’s College of Engineering</option>
+                                  <option value="Maharaja Agrasen Institute of Technology">Maharaja Agrasen Institute of Technology</option>
+                                  <option value="Maharaja Surajmal Institute of Technology">Maharaja Surajmal Institute of Technology</option>
+                                  <option value="JIMS Engineering Management Technical Campus">JIMS Engineering Management Technical Campus</option>
+                                  
+                            </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="objective">Career Objective</label>
+                    <input type="text" class="form-control" name="obj" id="objective" placeholder="Career Objective">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="skills">Skills</label>
+                        <input type="text" placeholder="Enter Skills" class="form-control" id="skills" name="skills">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="cat">Job Category</label>
+                        <select id="cat" name="cat" class="form-control">
+                          <option selected>Categories</option>
+                          <option value="management">Management</option>
+                          <option value="computer">Computers</option>
+                          <option value="marketing">Marketing</option>
+                          <option value="sales">Sales</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="exp">Experience</label>
+                        <input type="number" min="0" max="30" class="form-control" name="exp" id="exp">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+
+        </section>
+    </div>
+    <div class="container">
+            
+            
+    
+            {% if recommended %}
+            <div class="row">
+                <div class="col-md-6">
+                    <section id="section_1">
+                        <h3>Skills Recommended</h3>
+                        {% for skill in recommended %}
+                        <span class="badge badge-primary">{{skill}}</span> {% endfor %}
+                    </section>
+                </div>
+                <div class="col-md-6">
+                    <section id="section_2">
+                        <h3></h3>
+                    </section>
+                </div>
+            </div>
+            {% endif %}
+    
+        </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+        email = localStorage.getItem('email');
+        document.querySelector("#email").value = email;
+    </script>
+</body>
+
+</html>
